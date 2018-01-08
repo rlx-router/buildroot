@@ -241,10 +241,10 @@ Index: host-binutils-2.28.1/gas/config/tc-mips.c
  static void s_mips_loc (int);
  static bfd_boolean pic_need_relax (symbolS *);
  static int relaxed_branch_length (fragS *, asection *, int);
-+static inline int rlx_nops_for_new_insn (const struct mips_cl_insn *, const struct mips_cl_insn *);
-+static inline int rlx_is_insn_lt (const struct mips_cl_insn *, const struct mips_cl_insn *);
-+static inline int rlx_is_insn_st (const struct mips_cl_insn *, const struct mips_cl_insn *);
-+static inline int rlx_is_insn_swappable (const struct mips_cl_insn *, const struct mips_cl_insn *);
++//static inline int rlx_nops_for_new_insn (const struct mips_cl_insn *, const struct mips_cl_insn *);
++//static inline int rlx_is_insn_lt (const struct mips_cl_insn *, const struct mips_cl_insn *);
++//static inline int rlx_is_insn_st (const struct mips_cl_insn *, const struct mips_cl_insn *);
++//static inline int rlx_is_insn_swappable (const struct mips_cl_insn *, const struct mips_cl_insn *);
  static int relaxed_micromips_16bit_branch_length (fragS *, asection *, int);
  static int relaxed_micromips_32bit_branch_length (fragS *, asection *, int);
  static void file_mips_check_options (void);
@@ -295,7 +295,7 @@ Index: host-binutils-2.28.1/gas/config/tc-mips.c
  }
  
 +/* 2006-01-09 tonywu: fix branch delay slot filling bug */
-+static inline int
++/*static inline int
 +rlx_is_insn_swappable (const struct mips_cl_insn *history,
 +                       const struct mips_cl_insn *insn)
 +{
@@ -305,7 +305,7 @@ Index: host-binutils-2.28.1/gas/config/tc-mips.c
 +  pinfo1 = history[0].insn_mo->pinfo;
 +  pinfo2 = history[1].insn_mo->pinfo;
 +
-+  if (pinfo1 & INSN_LOAD_MEMORY_DELAY || pinfo1 & INSN_WRITE_GPR_T)
++  if (pinfo1 & INSN_LOAD_MEMORY || pinfo1 & INSN_WRITE_2)
 +    {
 +      if (insn_uses_reg (insn, EXTRACT_OPERAND (RT, history[0]), MIPS_GR_REG))
 +        {
@@ -313,7 +313,7 @@ Index: host-binutils-2.28.1/gas/config/tc-mips.c
 +        }
 +    }
 +
-+  if (pinfo2 & INSN_LOAD_MEMORY_DELAY || pinfo1 & INSN_WRITE_GPR_T)
++  if (pinfo2 & INSN_LOAD_MEMORY || pinfo1 & INSN_WRITE_2)
 +    {
 +      if (insn_uses_reg (insn, EXTRACT_OPERAND (RT, history[1]), MIPS_GR_REG))
 +        {
@@ -321,7 +321,7 @@ Index: host-binutils-2.28.1/gas/config/tc-mips.c
 +        }
 +    }
 +  return 0;
-+}
++}*/
 +
  /* The variable arguments provide NUM_INSNS extra instructions that
     might be added to HIST.  Return the largest number of nops that
